@@ -14,7 +14,11 @@ require('dotenv').config();
 app.use(express.json());
 app.use(cookieParser());
 
-const whitelist = [process.env.CLIENT_URL, process.env.GH_PAGE_URL];
+const whitelist = [
+    process.env.CLIENT_URL,
+    process.env.GH_PAGE_URL,
+    process.env.VERCEL_URL,
+];
 const corsOptions = {
     credentials: true,
     origin: function (origin, callback) {
