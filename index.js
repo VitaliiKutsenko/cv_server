@@ -13,12 +13,21 @@ require('dotenv').config();
 // CONNECT MIDDLEWARE
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-    cors({
-        credentials: true,
-        origin: process.env.CLIENT_URL,
-    })
-);
+
+const whitelist = [process.env.CLIENT_URL, process.env.GH_PAGE_URL];
+const corsOptions = {
+    credentials: true,
+    origin: function (origin, callback) {
+        if (whitelist.includes(origin)) {
+            console.log(origin);
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+};
+app.use(cors(corsOptions));
+
 app.use('/api/uploads', express.static('uploads'));
 app.use('/api', router);
 // RUN SERVER

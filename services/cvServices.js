@@ -46,8 +46,8 @@ const addCvCardField = async ({ userId, body }) => {
                 if (!doc) {
                     return ApiErrors.BadRequestError('not found');
                 }
-
-                return doc;
+                const updateDoc = { [itemKey]: doc.data[itemKey] };
+                return updateDoc;
             })
             .catch((err) => {
                 if (err) {
