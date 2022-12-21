@@ -21,7 +21,7 @@ const whitelist = [
 ];
 const corsOptions = {
     credentials: true,
-    origin: whitelist,
+    origin: process.env.GH_PAGE_URL,
 };
 app.use(cors(corsOptions));
 
