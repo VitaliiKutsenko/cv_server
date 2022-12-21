@@ -14,23 +14,23 @@ require('dotenv').config();
 app.use(express.json());
 app.use(cookieParser());
 
-// const whitelist = [
-//     process.env.CLIENT_URL,
-//     process.env.GH_PAGE_URL,
-//     process.env.VERCEL_URL,
-// ];
-// const corsOptions = {
-//     credentials: true,
-//     origin: function (origin, callback) {
-//         if (whitelist.includes(origin)) {
-//             console.log(origin);
-//             callback(null, true);
-//         } else {
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-// };
-// app.use(cors(corsOptions));
+const whitelist = [
+    process.env.CLIENT_URL,
+    process.env.GH_PAGE_URL,
+    process.env.VERCEL_URL,
+];
+const corsOptions = {
+    credentials: true,
+    origin: function (origin, callback) {
+        if (whitelist.includes(origin)) {
+            console.log(origin);
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+};
+app.use(cors(corsOptions));
 
 app.use('/api/uploads', express.static('uploads'));
 app.use('/api', router);
