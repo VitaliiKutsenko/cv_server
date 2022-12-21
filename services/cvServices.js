@@ -6,17 +6,18 @@ const getCvCard = async ({ username, name }) => {
         {
             username,
             ['collections']: { $elemMatch: { name } },
-        },
-        {
-            ['collections._id']: 1,
         }
+        // {
+        //     ['collections._id']: 1,
+        // }
     );
 
     if (!cvData) {
         throw ApiErrors.BadRequestError('This CV is not exist!');
     }
+
     const cvModel = await CvModel.findOne({
-        collectionId: cvData.collections.find((item) => item._id).id,
+        collectionId: cvData.collections.find((item) => item.name === name).id,
     });
     return cvModel;
 };
