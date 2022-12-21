@@ -21,14 +21,7 @@ const whitelist = [
 ];
 const corsOptions = {
     credentials: true,
-    origin: function (origin, callback) {
-        if (whitelist.includes(origin)) {
-            console.log(origin);
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: whitelist,
 };
 app.use(cors(corsOptions));
 
