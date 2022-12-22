@@ -21,8 +21,8 @@ const whitelist = [
 ];
 const corsOptions = {
     credentials: true,
-    origin: 'http://localhost:3000',
-    // origin: 'https://vitaliikutsenko.github.io',
+    // origin: 'http://localhost:3000',
+    origin: 'https://vitaliikutsenko.github.io',
 };
 app.use(cors(corsOptions));
 
