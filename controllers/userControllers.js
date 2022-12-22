@@ -3,6 +3,7 @@ const { upload } = require('../storage/storage');
 const userServices = require('../services/userServices');
 const { validationResult } = require('express-validator');
 const CvDataModel = require('../models/cvCard-model');
+const { s3Upload } = require('../aws_s3');
 const userController = {
     get: {
         async activateLink(req, res, next) {
@@ -102,8 +103,9 @@ const userController = {
         async upload(req, res, next) {
             try {
                 const file = await req.file;
+                const result = await s3Upload(file);
                 return res.json({
-                    url: `uploads/${req.file.originalname}`,
+                    url: result,
                 });
             } catch (err) {
                 next(err);

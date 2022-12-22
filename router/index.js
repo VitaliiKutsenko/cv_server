@@ -9,6 +9,10 @@ const cvControllers = require('../controllers/cvControllers');
 const { storage, upload } = require('../storage/storage');
 const multer = require('multer');
 const express = require('express');
+
+//UPLOAD
+router.post('/upload', upload.single('image'), userController.post.upload);
+
 // POST
 router.post(
     '/registration',
@@ -18,7 +22,6 @@ router.post(
 );
 router.post('/login', userController.post.login);
 router.post('/logout', userController.post.logout);
-router.post('/upload', upload.single('image'), userController.post.upload);
 
 // GET
 router.get('/activate/:link', userController.get.activateLink);
