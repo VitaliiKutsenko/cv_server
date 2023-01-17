@@ -8,7 +8,7 @@ const collectionServices = {
             if (userId) {
                 const cvData = await CvDataModel.findOne(
                     {
-                        userId,
+                        user: userId,
                     },
                     { [`collections.name`]: 1, [`collections._id`]: 1 }
                 );
@@ -23,7 +23,7 @@ const collectionServices = {
         async addCollectionsToDb(userId, body) {
             const { name } = body;
             const collectionCandidate = await CvDataModel.findOne({
-                userId,
+                user: userId,
                 [`collections.name`]: { $in: name },
             });
             if (collectionCandidate) {
@@ -62,8 +62,6 @@ const collectionServices = {
                         return ApiErrors.BadRequestError('error');
                     }
                 });
-            console.log(cvData);
-            // await ;
             return cvData;
         },
     },
